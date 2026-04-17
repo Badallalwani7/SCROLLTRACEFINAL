@@ -1,0 +1,284 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ScrollTrace | Reclaim Your Baseline</title>
+    
+    <!-- Premium Dependencies -->
+    <link rel="stylesheet" href="https://rsms.me/inter/inter.css">
+    <script src="https://unpkg.com/lenis@1.1.13/dist/lenis.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollTrigger.min.js"></script>
+
+    <style>
+        :root {
+            --bg: #000;
+            --white: #fff;
+            --drift: #FF3B30; /* Red */
+            --focus: #007AFF; /* Blue */
+            --border: rgba(255, 255, 255, 0.1);
+            --glass: rgba(0, 0, 0, 0.85);
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; -webkit-font-smoothing: antialiased; }
+        
+        body { 
+            font-family: 'Inter', sans-serif; 
+            background: var(--bg); 
+            color: var(--white); 
+            overflow-x: hidden;
+        }
+
+        /* --- Neural Topology Grid Background --- */
+        .grid-bg {
+            position: fixed; top: 0; left: 0; width: 100%; height: 100vh;
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(35px, 1fr));
+            gap: 4px; padding: 10px; z-index: -2;
+            opacity: 0.35;
+        }
+        .sq {
+            aspect-ratio: 1/1; background: rgba(255,255,255,0.03);
+            border-radius: 2px; transition: background 0.7s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+        .sq.drift { background: var(--drift); box-shadow: 0 0 10px rgba(255, 59, 48, 0.2); }
+        .sq.focus { background: var(--focus); box-shadow: 0 0 10px rgba(0, 122, 255, 0.2); }
+
+        /* --- Navigation HUD --- */
+        nav {
+            position: fixed; top: 0; width: 100%; padding: 30px 6%;
+            display: flex; justify-content: space-between; align-items: center;
+            z-index: 1000; background: var(--glass); backdrop-filter: blur(30px);
+            border-bottom: 0.5px solid var(--border);
+        }
+        .logo { font-weight: 900; font-size: 1.15rem; letter-spacing: -2px; }
+        .hud-status { font-family: monospace; font-size: 0.65rem; color: #444; letter-spacing: 2px; }
+
+        /* --- Content Layout --- */
+        #scroller { position: relative; width: 100%; }
+        section { 
+            min-height: 100vh; display: flex; flex-direction: column; 
+            justify-content: center; padding: 120px 10%; 
+        }
+
+        h1 { font-size: clamp(3rem, 10vw, 7rem); font-weight: 900; line-height: 0.9; letter-spacing: -0.05em; margin-bottom: 30px; }
+        h2 { font-size: clamp(2rem, 5vw, 4rem); font-weight: 800; letter-spacing: -0.03em; margin-bottom: 25px; }
+        p { font-size: 1.3rem; line-height: 1.5; color: #888; margin-bottom: 40px; max-width: 650px; }
+        .highlight-drift { color: var(--drift); }
+        .highlight-focus { color: var(--focus); }
+
+        /* --- Interactive Forms --- */
+        .form-pill {
+            display: flex; background: rgba(255,255,255,0.02); 
+            border: 1px solid var(--border); padding: 8px; 
+            border-radius: 100px; max-width: 500px; width: 100%;
+            backdrop-filter: blur(20px); transition: border-color 0.4s;
+        }
+        .form-pill:focus-within { border-color: var(--white); }
+        input { background: transparent; border: none; color: white; padding: 0 25px; flex: 1; outline: none; font-size: 0.95rem; }
+        .btn-submit { 
+            background: white; color: black; border: none; padding: 16px 35px; 
+            border-radius: 100px; font-weight: 800; cursor: pointer; transition: 0.3s; 
+        }
+
+        /* --- Bento Feature Grid --- */
+        .bento-dashboard {
+            display: grid; grid-template-columns: repeat(12, 1fr);
+            gap: 20px; width: 100%; margin-top: 50px;
+        }
+        .tile {
+            background: rgba(255, 255, 255, 0.02); border: 1px solid var(--border);
+            border-radius: 40px; padding: 45px; backdrop-filter: blur(40px);
+        }
+        .tile-l { grid-column: span 8; }
+        .tile-s { grid-column: span 4; }
+        
+        .t-label { color: var(--drift); font-size: 0.7rem; font-weight: 800; text-transform: uppercase; letter-spacing: 3px; margin-bottom: 25px; display: block; }
+        .t-val { font-size: 3.5rem; font-weight: 900; letter-spacing: -3px; margin-bottom: 10px; }
+        .t-desc { font-size: 1rem; color: #555; line-height: 1.4; }
+
+        /* --- Footer HUD --- */
+        .footer-hud {
+            position: fixed; bottom: 0; width: 100%; padding: 20px 6%;
+            background: var(--glass); backdrop-filter: blur(20px);
+            border-top: 0.5px solid var(--border);
+            display: flex; justify-content: space-between;
+            font-size: 0.65rem; font-weight: 800; letter-spacing: 2px; color: #444; z-index: 1000;
+        }
+
+        @media (max-width: 900px) {
+            .tile { grid-column: span 12; }
+            h1 { font-size: 3.5rem; }
+            section { padding: 80px 6%; }
+        }
+    </style>
+</head>
+<body>
+
+    <nav>
+        <div class="logo">SCROLLTRACE</div>
+        <div class="hud-status">BASELINE RECOVERY: <span id="rec-val" style="color: var(--focus);">40%</span></div>
+    </nav>
+
+    <div class="footer-hud">
+        <div>ANDROID CORE ENGINE / ALPHA</div>
+        <div>AVAILABILITY: PRIVATE_BETA_ACCESS</div>
+    </div>
+
+    <!-- The Neural Topology Grid Background -->
+    <div class="grid-bg" id="main-grid"></div>
+
+    <div id="scroller">
+        
+        <!-- HERO SECTION -->
+        <section id="hero">
+            <div class="content">
+                <h1>Face the <br><span class="highlight-drift">Digital Drift.</span></h1>
+                <p>ScrollTrace is a clinical-grade tracker for Instagram Reels and YouTube Shorts. Measure your vertical depth, reclaim your hours, and stabilize your baseline.</p>
+                
+                <form class="form-pill" action="https://api.web3forms.com/submit" method="POST">
+                    <input type="hidden" name="access_key" value="22debfa5-224f-43f9-8bea-94bb1bd6d917">
+                    <input type="email" name="email" placeholder="Email for private access" required>
+                    <button type="submit" class="btn-submit">Join Beta</button>
+                </form>
+            </div>
+        </section>
+
+        <!-- DASHBOARD SECTION -->
+        <section id="features">
+            <h2>Data missing from <br>generic trackers.</h2>
+            <div class="bento-dashboard">
+                <div class="tile tile-l">
+                    <span class="t-label">Vertical Depth</span>
+                    <div class="t-val">29.4m</div>
+                    <p class="t-desc">We convert your scroll behavior into physical units. Today you traveled 10 stories deep into the loop.</p>
+                </div>
+                <div class="tile tile-s">
+                    <span class="t-label">Opportunity Cost</span>
+                    <div class="t-val">2.0h</div>
+                    <p class="t-desc">Lost focused work time quantified in real-time.</p>
+                </div>
+                <div class="tile tile-s">
+                    <span class="t-label">Privacy First</span>
+                    <div class="t-val">Locked</div>
+                    <p class="t-desc">We use Accessibility Services only to track time. No data leaves your device.</p>
+                </div>
+                <div class="tile tile-l">
+                    <span class="t-label" style="color: var(--focus);">The 7-Day Detox</span>
+                    <div class="t-val" style="color: var(--focus);">Active</div>
+                    <p class="t-desc">Built-in protocols to spot triggers, times, and moods that lead to addictive overuse.</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- ANDROID BETA SECTION -->
+        <section id="android">
+            <div class="content">
+                <h2 class="highlight-focus">Android Developer Beta</h2>
+                <p>Help us refine the core Accessibility Engine. We are looking for early adopters to help us shape the future of digital health.</p>
+                
+                <form class="form-pill" style="border-color: rgba(0, 122, 255, 0.3);" action="https://api.web3forms.com/submit" method="POST">
+                    <input type="hidden" name="access_key" value="22debfa5-224f-43f9-8bea-94bb1bd6d917">
+                    <input type="hidden" name="Subject" value="New Android Developer Beta Applicant">
+                    <input type="email" name="email" placeholder="Google Play Developer Email" required>
+                    <button type="submit" class="btn-submit" style="background: var(--focus); color: #fff;">Request Access</button>
+                </form>
+            </div>
+        </section>
+
+        <!-- FOOTER -->
+        <section style="min-height: 40vh; align-items: center; opacity: 0.1;">
+            <div class="logo" style="font-size: 4rem;">sc.tr</div>
+        </section>
+    </div>
+
+    <script>
+        // 1. Grid Population
+        const grid = document.getElementById('main-grid');
+        const squares = [];
+        const numSquares = 500; 
+
+        for(let i=0; i < numSquares; i++) {
+            const sq = document.createElement('div');
+            sq.classList.add('sq');
+            if(Math.random() > 0.8) sq.classList.add('drift');
+            grid.appendChild(sq);
+            squares.push(sq);
+        }
+
+        // 2. Lenis Smooth Scroll
+        const lenis = new Lenis({ lerp: 0.06 });
+        function raf(time) { lenis.raf(time); requestAnimationFrame(raf); }
+        requestAnimationFrame(raf);
+
+        // 3. Neural Topology Logic (GSAP)
+        gsap.registerPlugin(ScrollTrigger);
+
+        ScrollTrigger.create({
+            trigger: "body",
+            start: "top top",
+            end: "bottom bottom",
+            scrub: true,
+            onUpdate: (self) => {
+                const p = self.progress;
+                document.getElementById('rec-val').innerText = Math.floor(40 + (p * 52)) + "%";
+
+                squares.forEach((sq, i) => {
+                    const threshold = (i / squares.length);
+                    if (p > threshold) {
+                        sq.classList.remove('drift');
+                        sq.classList.add('focus');
+                    } else {
+                        sq.classList.remove('focus');
+                    }
+                });
+            }
+        });
+
+        // 4. Working AJAX Forms (No Page Refresh)
+        const forms = document.querySelectorAll('form');
+        forms.forEach(form => {
+            form.addEventListener('submit', function(e) {
+                e.preventDefault();
+                const btn = form.querySelector('button');
+                const originalText = btn.innerText;
+                
+                btn.innerText = "Processing...";
+                btn.disabled = true;
+
+                fetch(form.action, {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json', 'Accept': 'application/json' },
+                    body: JSON.stringify(Object.fromEntries(new FormData(form)))
+                })
+                .then(response => {
+                    if (response.ok) {
+                        btn.innerText = "✓ On the list";
+                        btn.style.background = "#3DDC84";
+                        form.querySelector('input[type="email"]').value = "";
+                    } else {
+                        btn.innerText = "Error";
+                    }
+                })
+                .catch(() => btn.innerText = "Error")
+                .finally(() => {
+                    setTimeout(() => {
+                        btn.innerText = originalText;
+                        btn.style.background = "";
+                        btn.disabled = false;
+                    }, 3000);
+                });
+            });
+        });
+
+        // 5. Subtle Content Animation
+        gsap.utils.toArray('section > div, .tile').forEach(el => {
+            gsap.from(el, {
+                y: 50, opacity: 0, duration: 1,
+                scrollTrigger: { trigger: el, start: "top 90%", toggleActions: "play none none reverse" }
+            });
+        });
+    </script>
+</body>
+</html>
