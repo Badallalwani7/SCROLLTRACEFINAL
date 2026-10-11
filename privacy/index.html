@@ -1,0 +1,168 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>ScrollTrace privacy and permissions — what is stored and sent</title>
+  <meta name="description" content="What ScrollTrace's Accessibility permission can see, what is stored on your phone, what is sent to Google Firebase and the subscription provider, and how to export or delete your data.">
+  <link rel="canonical" href="https://scrolltrace.in/privacy/">
+  <meta name="author" content="Badal Lalwani">
+  <meta property="og:type" content="article">
+  <meta property="og:url" content="https://scrolltrace.in/privacy/">
+  <meta property="og:title" content="ScrollTrace privacy and permissions">
+  <meta property="og:description" content="Plain-language list of what ScrollTrace can see, stores and sends.">
+  <meta name="theme-color" content="#000000">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500&display=swap">
+  <link rel="stylesheet" href="https://rsms.me/inter/inter.css">
+  <link rel="icon" href="/assets/favicon.svg" type="image/svg+xml">
+  <link rel="stylesheet" href="/assets/site.css">
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@graph": [
+      {
+        "@type": "WebPage",
+        "name": "ScrollTrace privacy and permissions",
+        "url": "https://scrolltrace.in/privacy/",
+        "datePublished": "2026-10-11",
+        "dateModified": "2026-10-11",
+        "author": { "@type": "Person", "@id": "https://scrolltrace.in/about/#badal", "name": "Badal Lalwani" },
+        "publisher": { "@type": "Organization", "@id": "https://scrolltrace.in/#org", "name": "ScrollTrace" },
+        "about": { "@type": "MobileApplication", "@id": "https://scrolltrace.in/#app", "name": "ScrollTrace" }
+      },
+      {
+        "@type": "BreadcrumbList",
+        "itemListElement": [
+          { "@type": "ListItem", "position": 1, "name": "Home", "item": "https://scrolltrace.in/" },
+          { "@type": "ListItem", "position": 2, "name": "Privacy", "item": "https://scrolltrace.in/privacy/" }
+        ]
+      }
+    ]
+  }
+  </script>
+</head>
+<body class="inner">
+
+  <canvas id="field" aria-hidden="true"></canvas>
+
+  <header class="hud">
+    <a class="logo" href="/" aria-label="ScrollTrace home"><i aria-hidden="true"></i>SCROLLTRACE</a>
+    <div class="hud-read" aria-hidden="true">
+      <span>Baseline recovery <b id="hud-rec">40%</b></span>
+      <span class="d opt">Depth traced <b id="hud-depth">0.00 m</b></span>
+    </div>
+    <nav class="hud-nav" aria-label="Main">
+      <div class="links">
+        <a href="/how-it-works/">How it works</a>
+        <a href="/compare/">Compare</a>
+        <a href="/privacy/" aria-current="page">Privacy</a>
+        <a href="/about/">About</a>
+      </div>
+      <a class="btn btn-sm" href="https://play.google.com/store/apps/details?id=com.baadalalwani.scrolltrace">Get the app</a>
+    </nav>
+  </header>
+
+  <main class="wrap">
+    <article>
+      <div class="page-head">
+        <p class="crumb"><a href="/">Home</a> / Privacy</p>
+        <h1>Privacy and <span class="focus">permissions.</span></h1>
+        <p class="byline">By <a href="/about/">Badal Lalwani</a> · Updated 11 October 2026 · Applies to ScrollTrace 2.5.0 for Android</p>
+      </div>
+
+      <p class="answer">ScrollTrace uses Android's Accessibility service only inside Instagram, YouTube and TikTok, and only to detect that you swiped to a new short video. It does not read captions, comments, usernames or messages. Your scroll history is stored on your phone. A small amount of usage data goes to Google Firebase, and account and purchase data goes to Google and the subscription provider. You can export or delete your history at any time.</p>
+      <div class="prose">
+
+      <h2>What the Accessibility permission can see</h2>
+      <p>The service is configured to receive events only from Instagram, YouTube and TikTok (including TikTok Lite). From those apps it uses:</p>
+      <ul>
+        <li><strong>Scroll events</strong> — that a scroll happened, and the position in the list.</li>
+        <li><strong>Which screen is open</strong> — the internal name of the container, such as the Reels or Shorts player, to decide whether to count.</li>
+      </ul>
+      <p>It does <strong>not</strong> read or store post text, captions, comments, usernames, profile details, messages or the videos themselves. It does not take screenshots, and it does not tap, type or act inside other apps.</p>
+
+      <h2>Stored on your phone</h2>
+      <ul>
+        <li>A count of videos per app, per day, with times — the history behind your charts</li>
+        <li>Session records (when a scrolling session started and ended)</li>
+        <li>Your settings, such as daily limits</li>
+      </ul>
+      <p>This history lives in a local database inside ScrollTrace. It is not uploaded to a ScrollTrace server.</p>
+
+      <h2>Sent off your phone</h2>
+      <div class="table-wrap">
+        <table>
+          <thead><tr><th>What</th><th>Sent to</th><th>Why</th></tr></thead>
+          <tbody>
+            <tr><td>Usage events: "a short video was scrolled" with the platform (Instagram, YouTube, TikTok) and type (Reel, Short, video). No content.</td><td class="me">Google Firebase Analytics</td><td>To understand how the app is used and fix detection problems</td></tr>
+            <tr><td>Standard app and device information collected by Firebase (app version, device model, Android version, approximate region)</td><td class="me">Google Firebase</td><td>Crash-free operation and product analytics</td></tr>
+            <tr><td>Your Google account name and email, if you sign in with Google. Guest sign-in uses an anonymous ID.</td><td class="me">Google Firebase Authentication</td><td>To create your account</td></tr>
+            <tr><td>Account ID, name and email for signed-in users; subscription status</td><td class="me">RevenueCat (subscription provider) and Google Play Billing</td><td>To manage ScrollTrace Pro purchases and restore them</td></tr>
+            <tr><td>A device notification token</td><td class="me">Firebase Cloud Messaging</td><td>To send app notifications and announcements</td></tr>
+          </tbody>
+        </table>
+      </div>
+      <p>ScrollTrace does not sell personal data and does not show ads.</p>
+
+      <h2>Permissions the app asks for</h2>
+      <ul>
+        <li><strong>Accessibility service</strong> — detect swipes in Reels, Shorts and TikTok, as above.</li>
+        <li><strong>Notifications</strong> — limit alerts and the tracking notification.</li>
+        <li><strong>Foreground service and start at boot</strong> — keep counting when the app is closed and after a restart.</li>
+        <li><strong>Internet</strong> — sign-in, purchases and analytics.</li>
+        <li><strong>Google Play Billing</strong> — optional Pro subscription.</li>
+      </ul>
+
+      <h2>Export and delete</h2>
+      <ul>
+        <li><strong>Export:</strong> Settings → Privacy &amp; Data → <em>Export data as CSV</em>.</li>
+        <li><strong>Delete history:</strong> Settings → Privacy &amp; Data → <em>Delete all data</em>. This permanently wipes your scroll history from the phone.</li>
+        <li><strong>Uninstall:</strong> removing the app deletes the local database.</li>
+        <li><strong>Account and analytics data:</strong> to ask for deletion of your account or associated analytics records, use the <a href="/about/#contact">contact form</a>.</li>
+      </ul>
+
+      <h2>Turning tracking off</h2>
+      <p>You can switch off tracking for Instagram Reels or YouTube Shorts in ScrollTrace settings, or turn off the ScrollTrace Accessibility service entirely in Android Settings → Accessibility. Nothing is counted while it is off.</p>
+
+      <h2>Children</h2>
+      <p>ScrollTrace is not directed at children under 13.</p>
+
+      <h2>Contact</h2>
+      <p>ScrollTrace is developed by Badal Lalwani, Jabalpur, Madhya Pradesh, India. Questions about privacy: <a href="/about/#contact">contact form</a>.</p>
+
+      <p class="small" style="margin-top:32px">Third-party policies: <a href="https://firebase.google.com/support/privacy">Firebase</a> · <a href="https://www.revenuecat.com/privacy">RevenueCat</a> · <a href="https://policies.google.com/privacy">Google</a></p>
+      </div>
+    </article>
+  </main>
+
+  <footer class="foot">
+    <div class="wrap">
+      <div>
+        <a class="logo" href="/"><i aria-hidden="true"></i>SCROLLTRACE</a>
+        <p>A Reels, Shorts and TikTok scroll tracker for Android. Built by Badal Lalwani in Jabalpur, India.</p>
+      </div>
+      <div>
+        <h4>Product</h4>
+        <ul>
+          <li><a href="https://play.google.com/store/apps/details?id=com.baadalalwani.scrolltrace">Google Play</a></li>
+          <li><a href="/how-it-works/">How it works</a></li>
+          <li><a href="/compare/">ScrollTrace vs blockers</a></li>
+        </ul>
+      </div>
+      <div>
+        <h4>Company</h4>
+        <ul>
+          <li><a href="/about/">About the founder</a></li>
+          <li><a href="/privacy/">Privacy &amp; permissions</a></li>
+          <li><a href="/about/#contact">Contact</a></li>
+        </ul>
+      </div>
+      <div class="mark" aria-hidden="true">sc.tr</div>
+    </div>
+  </footer>
+
+  <script src="/assets/site.js" defer></script>
+</body>
+</html>
