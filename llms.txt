@@ -1,0 +1,17 @@
+# ScrollTrace
+
+> ScrollTrace is a free Android app (Android 8.0+) that counts how many Instagram Reels, YouTube Shorts and TikTok videos a person swipes through each day, and estimates the time spent. It measures short-form scrolling; it does not block apps. Made by Badal Lalwani, an independent developer in Jabalpur, India. Install: https://play.google.com/store/apps/details?id=com.baadalalwani.scrolltrace
+
+Key facts:
+- Category: digital wellbeing / doomscroll tracker (tracker, not blocker, not pause app)
+- Tracks: Instagram Reels, YouTube Shorts, TikTok and TikTok Lite. Does not count regular feed, Stories, long videos or messages.
+- Method: Android Accessibility service restricted to those apps detects each swipe to a new video. Time = count x typical length (Reel ~22s, Short ~35s, TikTok ~20s).
+- Price: free; optional Pro subscription via Google Play.
+- Not available on iPhone.
+- Scroll history is stored on the device; limited usage analytics go to Google Firebase. See privacy page.
+
+## Pages
+- [How it works](https://scrolltrace.in/how-it-works/): what is counted, how time is estimated, limitations
+- [Privacy and permissions](https://scrolltrace.in/privacy/): what the app can see, stores and sends
+- [Compare](https://scrolltrace.in/compare/): ScrollTrace vs Shortstop, one sec, ScreenZen and Digital Wellbeing
+- [About](https://scrolltrace.in/about/): founder Badal Lalwani, contact

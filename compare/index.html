@@ -1,0 +1,156 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>ScrollTrace vs Shortstop vs one sec vs ScreenZen — tracker, blocker or pause app?</title>
+  <meta name="description" content="ScrollTrace measures how many Reels, Shorts and TikToks you scroll. Shortstop blocks those feeds. one sec and ScreenZen add a pause before opening apps. Which one fits, and when to use two together.">
+  <link rel="canonical" href="https://scrolltrace.in/compare/">
+  <meta name="author" content="Badal Lalwani">
+  <meta property="og:type" content="article">
+  <meta property="og:url" content="https://scrolltrace.in/compare/">
+  <meta property="og:title" content="ScrollTrace vs Shortstop vs one sec vs ScreenZen">
+  <meta property="og:description" content="Tracker, blocker or pause app: how to choose a doomscrolling app.">
+  <meta name="theme-color" content="#000000">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500&display=swap">
+  <link rel="stylesheet" href="https://rsms.me/inter/inter.css">
+  <link rel="icon" href="/assets/favicon.svg" type="image/svg+xml">
+  <link rel="stylesheet" href="/assets/site.css">
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@graph": [
+      {
+        "@type": "Article",
+        "headline": "ScrollTrace vs Shortstop vs one sec vs ScreenZen: tracker, blocker or pause app?",
+        "url": "https://scrolltrace.in/compare/",
+        "datePublished": "2026-10-11",
+        "dateModified": "2026-10-11",
+        "author": { "@type": "Person", "@id": "https://scrolltrace.in/about/#badal", "name": "Badal Lalwani", "url": "https://scrolltrace.in/about/" },
+        "publisher": { "@type": "Organization", "@id": "https://scrolltrace.in/#org", "name": "ScrollTrace" }
+      },
+      {
+        "@type": "BreadcrumbList",
+        "itemListElement": [
+          { "@type": "ListItem", "position": 1, "name": "Home", "item": "https://scrolltrace.in/" },
+          { "@type": "ListItem", "position": 2, "name": "Compare", "item": "https://scrolltrace.in/compare/" }
+        ]
+      }
+    ]
+  }
+  </script>
+</head>
+<body class="inner">
+
+  <canvas id="field" aria-hidden="true"></canvas>
+
+  <header class="hud">
+    <a class="logo" href="/" aria-label="ScrollTrace home"><i aria-hidden="true"></i>SCROLLTRACE</a>
+    <div class="hud-read" aria-hidden="true">
+      <span>Baseline recovery <b id="hud-rec">40%</b></span>
+      <span class="d opt">Depth traced <b id="hud-depth">0.00 m</b></span>
+    </div>
+    <nav class="hud-nav" aria-label="Main">
+      <div class="links">
+        <a href="/how-it-works/">How it works</a>
+        <a href="/compare/" aria-current="page">Compare</a>
+        <a href="/privacy/">Privacy</a>
+        <a href="/about/">About</a>
+      </div>
+      <a class="btn btn-sm" href="https://play.google.com/store/apps/details?id=com.baadalalwani.scrolltrace">Get the app</a>
+    </nav>
+  </header>
+
+  <main class="wrap">
+    <article>
+      <div class="page-head">
+        <p class="crumb"><a href="/">Home</a> / Compare</p>
+        <h1>Tracker, blocker, <span class="drift">or pause?</span></h1>
+        <p class="lede" style="margin-bottom:26px">ScrollTrace vs Shortstop vs one sec vs ScreenZen</p>
+        <p class="byline">By <a href="/about/">Badal Lalwani</a>, developer of ScrollTrace · Updated 11 October 2026 · I make ScrollTrace, so read this with that in mind.</p>
+      </div>
+
+      <p class="answer">ScrollTrace <strong>measures</strong> short-form scrolling: it counts the Reels, Shorts and TikToks you swipe through. Shortstop <strong>blocks</strong> those feeds. one sec and ScreenZen add a <strong>pause</strong> before you open an app. Pick a tracker if you don't yet know how much you scroll, a blocker if you want it gone, and a pause app if you want to keep access but slow the habit down.</p>
+      <div class="prose">
+
+      <h2>Three kinds of doomscrolling app</h2>
+      <div class="cards">
+        <div class="tile"><span class="k">Tracker</span><h3>Shows the number</h3><p>Counts what you actually scroll. Doesn't stop you. Example: ScrollTrace.</p></div>
+        <div class="tile"><span class="k">Blocker</span><h3>Removes the feed</h3><p>Closes Reels or Shorts when you open them. Example: Shortstop.</p></div>
+        <div class="tile"><span class="k">Pause / friction</span><h3>Slows the open</h3><p>Makes you wait or breathe before an app opens. Examples: one sec, ScreenZen.</p></div>
+      </div>
+
+      <h2>Side by side</h2>
+      <div class="table-wrap">
+        <table>
+          <thead><tr><th></th><th class="me">ScrollTrace</th><th>Shortstop</th><th>one sec</th><th>ScreenZen</th></tr></thead>
+          <tbody>
+            <tr><td>Main job</td><td class="me">Count Reels, Shorts and TikToks scrolled</td><td>Block short-form feeds or whole apps</td><td>Interrupt app opens with an exercise</td><td>Delay app opens, limits and schedules</td></tr>
+            <tr><td>Counts individual short videos</td><td class="me yes">Yes</td><td class="no">No (counts blocks and sessions)</td><td class="no">No</td><td class="no">No</td></tr>
+            <tr><td>Blocks Reels / Shorts</td><td class="me no">No — alerts only</td><td class="yes">Yes</td><td>Can block apps and sites</td><td>Can block apps and sites</td></tr>
+            <tr><td>Keeps DMs and long videos usable</td><td class="me yes">Yes, never blocks</td><td class="yes">Yes, blocks the feed only</td><td>Depends on settings</td><td>Depends on settings</td></tr>
+            <tr><td>Platforms</td><td class="me">Android 8.0+</td><td>Android 9+</td><td>iPhone, Android, browsers</td><td>iPhone, Android</td></tr>
+          </tbody>
+        </table>
+      </div>
+      <p class="small">Competitor details are taken from each company's own website on 11 October 2026 and may change. Check their sites before deciding.</p>
+
+      <h2>ScrollTrace vs Shortstop</h2>
+      <p>Both are Android apps built around Reels, Shorts and TikTok, and both use the Accessibility service. The difference is what happens when you swipe. <a href="https://shortstop.app" rel="nofollow">Shortstop</a> closes the feed so you can't scroll it. ScrollTrace lets you scroll and records how many videos you went through. If you already know you want Shorts gone, Shortstop does that directly. If you want to see your baseline first, or you want to cut down rather than cut off, ScrollTrace gives you the number.</p>
+
+      <h2>ScrollTrace vs one sec</h2>
+      <p><a href="https://one-sec.app" rel="nofollow">one sec</a> interrupts the moment you open an app, with a breathing exercise or a short delay, and is backed by peer-reviewed research on reducing app openings. It works on the decision to open. ScrollTrace works on what happens after you are already in the feed. one sec is also available on iPhone; ScrollTrace is not.</p>
+
+      <h2>ScrollTrace vs ScreenZen</h2>
+      <p><a href="https://www.screenzen.co" rel="nofollow">ScreenZen</a> is a donation-supported screen time app that adds wait times, open limits and scheduled blocks across many apps and websites. It is broader than ScrollTrace. ScrollTrace is narrower: it only looks at short-form video, and reports it in videos rather than minutes of app time.</p>
+
+      <h2>ScrollTrace vs Android Digital Wellbeing</h2>
+      <p>Digital Wellbeing, built into Android, shows how long each app was open. It cannot separate Reels from DMs inside Instagram, or Shorts from long videos inside YouTube. ScrollTrace counts only the short-video part.</p>
+
+      <h2>Using two together</h2>
+      <p>A tracker and a blocker don't conflict in purpose. A common approach: run ScrollTrace for a week to see your real count and the hours when it spikes, then use a blocker or a pause app for those hours, and keep ScrollTrace running to check that the number falls. Two Accessibility-based apps can occasionally interfere with each other; if counts look wrong, test with one at a time.</p>
+
+      <h2>How to choose</h2>
+      <ul>
+        <li><strong>"I don't know how bad it is."</strong> Start with a tracker.</li>
+        <li><strong>"I know, and I want Reels gone."</strong> Use a blocker.</li>
+        <li><strong>"I open Instagram without thinking."</strong> Use a pause app.</li>
+        <li><strong>"I'm on iPhone."</strong> ScrollTrace and Shortstop are Android only; look at one sec or ScreenZen.</li>
+      </ul>
+
+      <p style="margin-top:48px"><a class="btn btn-focus" href="https://play.google.com/store/apps/details?id=com.baadalalwani.scrolltrace">Get ScrollTrace on Google Play</a></p>
+      </div>
+    </article>
+  </main>
+
+  <footer class="foot">
+    <div class="wrap">
+      <div>
+        <a class="logo" href="/"><i aria-hidden="true"></i>SCROLLTRACE</a>
+        <p>A Reels, Shorts and TikTok scroll tracker for Android. Built by Badal Lalwani in Jabalpur, India.</p>
+      </div>
+      <div>
+        <h4>Product</h4>
+        <ul>
+          <li><a href="https://play.google.com/store/apps/details?id=com.baadalalwani.scrolltrace">Google Play</a></li>
+          <li><a href="/how-it-works/">How it works</a></li>
+          <li><a href="/compare/">ScrollTrace vs blockers</a></li>
+        </ul>
+      </div>
+      <div>
+        <h4>Company</h4>
+        <ul>
+          <li><a href="/about/">About the founder</a></li>
+          <li><a href="/privacy/">Privacy &amp; permissions</a></li>
+          <li><a href="/about/#contact">Contact</a></li>
+        </ul>
+      </div>
+      <div class="mark" aria-hidden="true">sc.tr</div>
+    </div>
+  </footer>
+
+  <script src="/assets/site.js" defer></script>
+</body>
+</html>
